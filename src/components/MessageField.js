@@ -8,6 +8,7 @@ const MessageField = ({ name, setText, text }) => {
 
   return (
     <TextField
+      variant="standard"
       fullWidth={true}
       onChange={(e) => setText(e.target.value)}
       onKeyDown={(e) => {

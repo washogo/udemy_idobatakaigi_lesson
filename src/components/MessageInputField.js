@@ -3,8 +3,9 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 
-import { gravatarPath } from "../gravatar"
+import { gravatarPath } from "../gravatar";
 import MessageField from "./MessageField";
+import MessageSubmitButton from "./MessageSubmitButton";
 
 const useStyles = makeStyles({
   root: {
@@ -14,9 +15,9 @@ const useStyles = makeStyles({
 });
 
 const MessageInputField = ({ name }) => {
-  const [text, setText] = useState();
+  const [text, setText] = useState("");
   const classes = useStyles();
-  const avatarPath = gravatarPath(name)
+  const avatarPath = gravatarPath(name);
 
   return (
     <div className={classes.root}>
@@ -27,7 +28,9 @@ const MessageInputField = ({ name }) => {
         <Grid item xs={10}>
           <MessageField name={name} setText={setText} text={text} />
         </Grid>
-        <Grid item xs={1}>ボタン</Grid>
+        <Grid item xs={1}>
+          <MessageSubmitButton name={name} setText={setText} text={text} />
+        </Grid>
       </Grid>
     </div>
   );
