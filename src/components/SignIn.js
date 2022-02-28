@@ -37,8 +37,8 @@ export default function SignIn({ setName }) {
   console.log({ disabled, string });
 
   useEffect(() => {
-    const disabled = string === ""
-    setDisabled(disabled)
+    const disabled = string === "";
+    setDisabled(disabled);
   }, [string]);
 
   const handleSubmit = (event) => {
@@ -81,6 +81,12 @@ export default function SignIn({ setName }) {
               name="name"
               autoFocus
               onChange={(e) => setString(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setName(e.target.value);
+                  e.preventDefault();
+                }
+              }}
             />
             <Button
               type="button"
@@ -90,7 +96,7 @@ export default function SignIn({ setName }) {
               sx={{ mt: 3, mb: 2 }}
               disabled={disabled}
               onClick={() => {
-                setName(string)
+                setName(string);
               }}
             >
               はじめる
