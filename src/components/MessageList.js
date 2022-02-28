@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { List } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
+import MessageItem from "./MessageItem";
 import { messagesRef } from "../firebase";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const useStyles = makeStyles({
   root: {
     gridRow: 1,
+    width: "100%",
+    overflow: "auto",
   },
 });
 
@@ -17,22 +19,32 @@ const MessageList = () => {
 
   useEffect(() => {
     messagesRef
-    .orderByKey()
-    .limitToLast(3)
-    .on("value", (snapshot) => {
-      const messages = snapshot.val();
-      console.log(messages);
-      if (messages === null) return;
-      const entries = Object.entries(messages);
-      const newMessages = entries.map((entry) => {
-        const [key, nameAndText] = entry;
-        return { key, ...nameAndText };
+      .orderByKey()
+      .limitToLast(15)
+      .on("value", (snapshot) => {
+        const messages = snapshot.val();
+        console.log(messages);
+        if (messages === null) return;
+        const entries = Object.entries(messages);
+        const newMessages = entries.map((entry) => {
+          const [key, nameAndText] = entry;
+          return { key, ...nameAndText };
+        });
+        setMessages(newMessages);
       });
-      setMessages(newMessages);
-    });
-  }, [])
+  }, []);
 
-  return <div className={classes.root}>MessageList</div>;
+  return (
+    <List className={classes.root}>
+      {messages.map(({ key, name, text }) => {
+        return (
+          <MessageItem key={key} name={name} text={text}>
+            item
+          </MessageItem>
+        );
+      })}
+    </List>
+  );
 };
 
 export default MessageList;
