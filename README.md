@@ -1,3 +1,10 @@
+# 概要
+Firebase未経験者のためのReactで作るチャットアプリ開発入門！最速最短でゴール到達！
+https://www.udemy.com/course/react-firebase/
+
+#やったこと
+講座に従ってチャットアプリを作成した。material-uiは最新バージョンを使用した。
+
 # React Starter Kit in TypeScript
 
 ## Node のインストール方法
