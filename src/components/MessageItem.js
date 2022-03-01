@@ -5,15 +5,22 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { gravatarPath } from "../gravatar";
 
-const MessageItem = ({ name, text }) => {
+const MessageItem = ({ isLastItem, name, text }) => {
+  const ref = useRef(null);
   const avatarPath = gravatarPath(name);
 
+  useEffect(() => {
+    if (isLastItem) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isLastItem]);
+
   return (
-    <ListItem divider={true}>
+    <ListItem divider={true} ref={ref}>
       <ListItemAvatar>
         <Avatar src={avatarPath} />
       </ListItemAvatar>
